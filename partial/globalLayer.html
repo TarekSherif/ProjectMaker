@@ -1,0 +1,77 @@
+﻿<div  >
+                  
+      
+
+            <div>/// The data definition class that represents the {{SelectTable.TableName}} table. </div>
+            
+            <div>
+                <div> [MetadataType(typeof({{SelectTable.TableName}}MetaData))]</div>  
+                <div>public  class {{SelectTable.TableName}}</div>
+                <div>{</div>
+                    
+            </div>
+            <div>
+                    public {{SelectTable.TableName}} (){}
+            </div>
+            <div>
+                <span>public </span>
+                <span>{{SelectTable.TableName}} </span>
+                <span>(</span>
+                    <span ng-repeat="Column in SelectTable.Columns ">
+                        {{Column.Type|dataType}}
+                        <span ng-show="(Column.Type|dataType)!='string' && Column.NotNull==false">?</span>
+                        <span> {{Column.ColumnName|camelize}} </span>
+                        <span> {{$last ? '' : ','}}</span>
+                    </span>
+                <span>) 
+                <span>{</span>
+                    <br>
+                    <div ng-repeat="Column in SelectTable.Columns ">
+                        {{Column.ColumnName}} ={{Column.ColumnName|camelize}} ;
+
+                    </div> 
+                <span>}</span>
+            </div>
+
+            <div ng-repeat="Column in SelectTable.Columns ">
+                    
+                    <div>[DataMember]</div>
+                    <div>public {{Column.Type|dataType}}
+                    <span ng-show="(Column.Type|dataType)!='string' && Column.NotNull==false">?</span> {{Column.ColumnName}} {get;set;}</div>
+                    
+                    
+            </div>
+            <div>}</div>
+
+            <div>
+                    public class  {{SelectTable.TableName}}MetaData<br>
+                    { <br>
+                    
+                        <div ng-repeat="Column in SelectTable.Columns ">
+                                [DisplayNameCustom("{{Column.ColumnName}}")] <br>
+                                <div ng-show="Column.NotNull && !Column.ISPrimaryKey">
+                                    [RequiredCustom("{{Column.ColumnName}}")]
+                                </div>
+                                public {{Column.Type|dataType}}
+                                <span ng-show="(Column.Type|dataType)!='string' && Column.NotNull==false">?</span>
+                                {{Column.ColumnName}} { get; set; } <br>
+                                <div><br></div>
+                        </div>
+                    } <br>
+            </div>
+        
+            
+            <div>
+                    public struct {{SelectTable.TableName}} <br>
+                    { <br>
+                        public static string EntityName = "[{{SelectTable.AreaName}}].[{{SelectTable.TableName}}]";<br>
+                        <div ng-repeat="Column in SelectTable.Columns ">
+                                public static string {{Column.ColumnName}}   = "[{{SelectTable.TableName}}].[{{Column.ColumnName}}]";
+                                <br>
+                        </div>
+                    } <br>
+            </div>
+    
+        </div>
+        
+ 

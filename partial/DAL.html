@@ -1,0 +1,72 @@
+﻿<div >
+    <div>
+        static string []  Fields =  new string[] { 
+                <div ng-repeat="Column in SelectTable.Columns ">
+                    Mapping.{{SelectTable.AreaName +"Mapping."+SelectTable.TableName+"."+Column.ColumnName + ($last ? '' : ',')}}
+                </div>
+            }  ;
+    </div>
+    <div>
+            
+            static string []  LightFields =  new string[] { 
+                <div ng-repeat="Column in SelectTable.Columns ">
+                    Mapping.{{SelectTable.AreaName +"Mapping."+SelectTable.TableName+"."+Column.ColumnName + ($last ? '' : ',')}}
+                </div>
+                    };
+    </div>
+
+    <div>
+            
+        static string []  FieldsWithoutId =  new string[] { 
+            <div ng-repeat="Column in SelectTable.Columns | filter:{ISPrimaryKey:false}">
+                Mapping.{{SelectTable.AreaName +"Mapping."+SelectTable.TableName+"."+Column.ColumnName + ($last ? '' : ',')}}
+            </div>
+                };
+    </div>
+    <hr>
+    <div>
+            var sqlStatement = $@"  Update { Mapping.{{SelectTable.AreaName}}Mapping.{{SelectTable.TableName}}.EntityName}  
+                    Set "+
+                    <div ng-repeat="Column in SelectTable.Columns| filter:{ISPrimaryKey:false} ">
+                            Mapping.{{SelectTable.AreaName}}Mapping.{{SelectTable.TableName}}.{{Column.ColumnName}}+ " = " + Format.StringForInsert(model.{{Column.ColumnName}}) {{$last ? '+' : '+","+'}}
+                    </div>
+                    <div ng-repeat="Column in SelectTable.Columns| filter:{ISPrimaryKey:true}">
+                        "( Where "+ Mapping.{{SelectTable.AreaName}}Mapping.{{SelectTable.TableName}}.{{Column.ColumnName}} + " = " + model.{{Column.ColumnName}});
+                </div>
+                
+            <br>
+    </div>
+    <hr>
+    <div>
+            
+                var sqlStatement = $@"insert into {Mapping.{{SelectTable.AreaName}}Mapping.{{SelectTable.TableName}}.EntityName} (" + FormatInsertFields() + ") values ( " +
+                    <div ng-repeat="Column in SelectTable.Columns| filter:{ISPrimaryKey:false}  ">
+                        Format.StringForInsert(model.{{Column.ColumnName}}) {{$last ? '' : '+","+'}}
+                    </div>
+                    +")";
+            <br>
+    </div>
+    <hr>
+    <div>
+                string sqlStatement = $@"Delete From  {Mapping.{{SelectTable.AreaName}}Mapping.{{SelectTable.TableName}}.EntityName} 
+                where {Mapping.{{SelectTable.AreaName}}Mapping.{{SelectTable.TableName}} }  = " + Format.IntegerForSearch(Id);
+    
+    </div>
+    <hr>
+    <br>
+    <div>
+        <div ng-repeat="Column in SelectTable.Columns ">
+                if (reader[Mapping.{{SelectTable.AreaName}}Mapping.{{SelectTable.TableName}}.{{Column.ColumnName}}.ToColumnName()] != DBNull.Value)<br>
+                <div ng-show="(Column.Type|dataType)=='string'">
+                    model.{{Column.ColumnName}} =reader[Mapping.{{SelectTable.AreaName}}Mapping.{{SelectTable.TableName}}.{{Column.ColumnName}}.ToColumnName()].ToString();
+                </div>
+                <div ng-show="(Column.Type|dataType)!='string'">
+                    model.{{Column.ColumnName}} ={{Column.Type|dataType}}.Parse(reader[Mapping.{{SelectTable.AreaName}}Mapping.{{SelectTable.TableName}}.{{Column.ColumnName}}.ToColumnName()].ToString());
+                </div>
+                <br>
+        </div>
+
+    </div>
+    
+</div>
+  

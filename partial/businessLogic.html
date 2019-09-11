@@ -1,0 +1,11 @@
+﻿<div >
+
+        
+            <h3>Unique</h3>
+            AdvancedList  &lt;SearchItem&gt; searchItemList = new AdvancedList  &lt;SearchItem&gt;();
+            
+            <div ng-repeat="Column in SelectTable.Columns| filter:{Unique:true} ">
+                searchItemList.Add(new SearchItem ( Mapping.{{SelectTable.AreaName}}Mapping.{{SelectTable.TableName}}.{{Column.ColumnName}},  model.{{Column.ColumnName}}.ToString(),  SearchCriteria.Exactly ));
+            </div>
+ 
+</div>

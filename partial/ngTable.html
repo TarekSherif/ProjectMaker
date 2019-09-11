@@ -1,0 +1,201 @@
+﻿<div class="Table"  ng-repeat="Table in Tables | filter:SearchText ">
+ 
+    <table>
+        <thead>
+
+
+            <tr>
+                <th ng-show="TableSetting.ISPrimaryKey" ng-click="SortData('ISPrimaryKey')">
+
+                    PK
+                    <div ng-class="GetSortClass('ISPrimaryKey')"></div>
+                </th>
+
+                <th ng-show="TableSetting.ColumnName" ng-click="SortData('ColumnName')">
+                    ColumnName
+                    <div ng-class="GetSortClass('ColumnName')"></div>
+                </th>
+                <th ng-show="TableSetting.Description" ng-click="SortData('Description')">
+                    Description
+                    <div ng-class="GetSortClass('Description')"></div>
+                </th>
+
+                <th ng-show="TableSetting.Type" ng-click="SortData('Type')">
+                    Type
+                    <div ng-class="GetSortClass('Type')"></div>
+                </th>
+                <th ng-show="TableSetting.Size" ng-click="SortData('Size')">
+                    Size
+                    <div ng-class="GetSortClass('Size')"></div>
+                </th>
+
+                <th ng-show="TableSetting.NotNull" ng-click="SortData('NotNull')">
+                    NotNull
+                    <div ng-class="GetSortClass('NotNull')"></div>
+                </th>
+
+                <th ng-show="TableSetting.Unique" ng-click="SortData('Unique')">
+                    Unique
+                    <div ng-class="GetSortClass('Unique')"></div>
+                </th>
+
+                <th ng-show="TableSetting.DefaultValue" ng-click="SortData('DefaultValue')">
+                    DefaultValue
+                    <div ng-class="GetSortClass('DefaultValue')"></div>
+                </th>
+
+                <th ng-show="TableSetting.ISForeignKey" ng-click="SortData('ISForeignKey')">
+                    ISForeignKey
+                    <div ng-class="GetSortClass('ISForeignKey')"></div>
+                </th>
+
+                <th ng-show="TableSetting.ColumnName">Edit</th>
+                <th ng-show="TableSetting.ColumnName">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            <tr ng-show="EditColumnMode" style="background-color:orange">
+                <td ng-show="TableSetting.ISPrimaryKey"><input type="checkbox" ng-model="EditColumn.ISPrimaryKey" /></td>
+                <td ng-show="TableSetting.ColumnName"><input type="text" ng-model="EditColumn.ColumnName" /></td>
+                <td ng-show="TableSetting.Description"><input type="text" ng-model="EditColumn.Description" /></td>
+                <td ng-show="TableSetting.Type"><input type="text" ng-model="EditColumn.Type" /></td>
+                <td ng-show="TableSetting.Size"><input type="number" ng-model="EditColumn.Size" /></td>
+                <td ng-show="TableSetting.NotNull">
+
+                    <!--<input type="checkbox" ng-model="FilterColumn.NotNull" />-->
+                    <img src="images/Disable.png" ng-hide="EditColumn.NotNull" ng-click="EditColumn.NotNull=true;" />
+                    <img src="images/Enable.png" ng-show="EditColumn.NotNull" ng-click="EditColumn.NotNull=false;" />
+
+                </td>
+                <td ng-show="TableSetting.Unique">
+
+                    <!--<input type="checkbox" ng-model="FilterColumn.Unique" />-->
+
+                    <img src="images/Disable.png" ng-hide="EditColumn.Unique" ng-click="EditColumn.Unique=true;" />
+                    <img src="images/Enable.png" ng-show="EditColumn.Unique" ng-click="EditColumn.Unique=false;" />
+
+                </td>
+                <td ng-show="TableSetting.DefaultValue"><input type="text" ng-model="EditColumn.DefaultValue" /></td>
+                <td ng-show="TableSetting.ISForeignKey">
+                <!--<input type="checkbox" ng-model="EditColumn.ISForeignKey" />-->
+                    <img src="images/Disable.png" ng-hide="EditColumn.ISForeignKey" ng-click="EditColumn.ISForeignKey=true;" />
+                    <img src="images/Enable.png" ng-show="EditColumn.ISForeignKey" ng-click="EditColumn.ISForeignKey=false;" />
+                </td>
+                <td><input type="button" ng-click="ShowOrHideEditColumnMode(EditColumn)" value=" Save " /></td>
+
+
+            </tr>
+            <tr ng-show="FilterColumnMode" style="background-color:orange">
+                <td ng-show="TableSetting.ISPrimaryKey"><input type="checkbox" ng-model="FilterColumn.ISPrimaryKey" /></td>
+                <td ng-show="TableSetting.ColumnName"><input type="text" ng-model="FilterColumn.ColumnName" /></td>
+                <td ng-show="TableSetting.Description"><input type="text" ng-model="FilterColumn.Description" /></td>
+                <td ng-show="TableSetting.Type"><input type="text" ng-model="FilterColumn.Type" /></td>
+                <td ng-show="TableSetting.Size"><input type="number" ng-model="FilterColumn.Size" /></td>
+                <td ng-show="TableSetting.NotNull">
+                
+                    <!--<input type="checkbox" ng-model="FilterColumn.NotNull" />-->
+                    <img src="images/Disable.png" ng-hide="FilterColumn.NotNull" ng-click="FilterColumn.NotNull=true;" />
+                    <img src="images/Enable.png" ng-show="FilterColumn.NotNull" ng-click="FilterColumn.NotNull=false;"/>
+                
+                </td>
+                <td ng-show="TableSetting.Unique">
+                
+                    <!--<input type="checkbox" ng-model="FilterColumn.Unique" />-->
+
+                    <img src="images/Disable.png" ng-hide="FilterColumn.Unique" ng-click="FilterColumn.Unique=true;" />
+                    <img src="images/Enable.png" ng-show="FilterColumn.Unique" ng-click="FilterColumn.Unique=false;" />
+                
+                </td>
+                <td ng-show="TableSetting.DefaultValue"><input type="text" ng-model="FilterColumn.DefaultValue" /></td>
+                <td ng-show="TableSetting.ISForeignKey">
+                    <!--<input type="checkbox" ng-model="EditColumn.ISForeignKey" />-->
+                    <img src="images/Disable.png" ng-hide="FilterColumn.ISForeignKey" ng-click="FilterColumn.ISForeignKey=true;" />
+                    <img src="images/Enable.png" ng-show="FilterColumn.ISForeignKey" ng-click="FilterColumn.ISForeignKey=false;" />
+                </td>
+
+                <td><input type="button" value="CancelFilter" ng-click="CancelColumnFilter();" /></td>
+            </tr>
+            <tr ng-show="InsertColumnMode" style="background-color:orange">
+                <td ng-show="TableSetting.ISPrimaryKey"><input type="checkbox" ng-model="NewColumn.ISPrimaryKey" /></td>
+                <td ng-show="TableSetting.ColumnName"><input type="text" ng-model="NewColumn.ColumnName" /></td>
+                <td ng-show="TableSetting.Description"><input type="text" ng-model="NewColumn.Description" /></td>
+                <td ng-show="TableSetting.Type"><input type="text" ng-model="NewColumn.Type" /></td>
+                <td ng-show="TableSetting.Size"><input type="number" ng-model="NewColumn.Size" /></td>
+                <td ng-show="TableSetting.NotNull">
+
+                    <!--<input type="checkbox" ng-model="FilterColumn.NotNull" />-->
+                    <img src="images/Disable.png" ng-hide="NewColumn.NotNull" ng-click="NewColumn.NotNull=true;" />
+                    <img src="images/Enable.png" ng-show="NewColumn.NotNull" ng-click="NewColumn.NotNull=false;" />
+
+                </td>
+                <td ng-show="TableSetting.Unique">
+
+                    <!--<input type="checkbox" ng-model="FilterColumn.Unique" />-->
+
+                    <img src="images/Disable.png" ng-hide="NewColumn.Unique" ng-click="NewColumn.Unique=true;" />
+                    <img src="images/Enable.png" ng-show="NewColumn.Unique" ng-click="NewColumn.Unique=false;" />
+
+                </td>
+                <td ng-show="TableSetting.DefaultValue"><input type="text" ng-model="NewColumn.DefaultValue" /></td>
+                <td ng-show="TableSetting.ISForeignKey">
+                    <!--<input type="checkbox" ng-model="EditColumn.ISForeignKey" />-->
+                    <img src="images/Disable.png" ng-hide="NewColumn.ISForeignKey" ng-click="NewColumn.ISForeignKey=true;" />
+                    <img src="images/Enable.png" ng-show="NewColumn.ISForeignKey" ng-click="NewColumn.ISForeignKey=false;" />
+                </td>
+                <td>
+                    <input type="button" value="Save" ng-click="InsertNewColumn(Table)" />
+                    <input type="button" value="Cancel" ng-click="CancelColumnInsert()" />
+                </td>
+            </tr>
+
+
+            
+            <tr ng-repeat="Column in Table.Columns | filter : FilterColumn |orderBy:SortColumn:SortDesc   " ng-animate=" 'animate' ">
+                <td ng-show="TableSetting.ISPrimaryKey">
+                    <img ng-show="Column.ISPrimaryKey" src="images/key1.png" />
+                </td>
+                <td ng-show="TableSetting.ColumnName">{{Column.ColumnName | uppercase }}</td>
+                <td ng-show="TableSetting.Description">{{Column.Description}}</td>
+                <td ng-show="TableSetting.Type">{{Column.Type}}</td>
+                <td ng-show="TableSetting.Size">{{Column.Size}}</td>
+                <td ng-show="TableSetting.NotNull">
+                    <!-- <img src="images/Disable.png" ng-hide="Column.NotNull" />
+                    <img src="images/Enable.png" ng-show="Column.NotNull" /> -->
+                    <input type="checkbox" ng-model="Column.NotNull" />
+                </td>
+                <td ng-show="TableSetting.Unique">
+                    <!-- <img src="images/Disable.png" ng-hide="Column.Unique" />
+                    <img src="images/Enable.png" ng-show="Column.Unique" /> -->
+                         <input type="checkbox" ng-model="Column.Unique" />
+                </td>
+                <td ng-show="TableSetting.DefaultValue">{{Column.DefaultValue}}</td>
+               
+                <td ng-show="TableSetting.ISForeignKey">
+                    <!-- <img src="images/Disable.png" ng-hide="Column.ISForeignKey" />
+                    <img src="images/Enable.png" ng-show="Column.ISForeignKey" /> -->
+                    <input type="checkbox" ng-model="Column.ISForeignKey" />
+                </td>
+
+
+                <td>
+
+
+                    <img src="images/row_Edit.png" ng-click="ShowOrHideEditColumnMode(Column);" alt="Edit" title="Edit" />
+
+
+                </td>
+                <td>
+                    <img src="images/row_delete.png" ng-click="RemoveColumn(Table,$index);" alt="Remove" title="Remove" />
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+    <br />
+    Column Count :<span ng-pluralize count="(Table.Columns  |filter:FilterColumn ).length" when="{'one': '1 Column', 'other': '{} Columns'}"></span>
+
+</div>

@@ -1,0 +1,35 @@
+﻿echo "# ProjectMaker" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/TarekSherif/ProjectMaker.git
+
+
+
+
+HotelID	int	No	رقم الفندق	
+LevelID	int	No	مستوى الفندق	
+Address	nvarchar(MAX)	No	العنوان	
+Phone	nvarchar(MAX)	No	التليفون	
+Mobile	nvarchar(MAX)	No	الموبايل	
+MapLink	nvarchar(MAX)	No	الموقع على الخريطه	
+Percentage	decimal(18, 10)	No	النسبة المحصله	
+ProfileId	int	No	البروفيل	
+				
+
+
+PackageIntervalID	int	No		
+PackageID	int	No		
+StartingDate	date	No	من	
+ExpiryDate	date	No	الى	
+IsActive	bit	Yes	Check for activate category or not	((1))
+				
+
+
+
+
+HotelPolicyID	int	No		
+HotelID	int	No		
+PolicyID	int	No		
+Description	nvarchar(MAX)	Yes		
+				

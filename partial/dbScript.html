@@ -1,0 +1,17 @@
+﻿<div>
+    <script> var FK = 'FK'; </script>
+        DECLARE @translatorID int ;
+        <!-- | filter:{Description:'!' + FK} -->
+    <div ng-repeat="Column in SelectTable.Columns ">
+            insert into CMS.Translator ([Key],[Value],LanguageId,LocalizeParentId) Values('{{Column.ColumnName}}',N'{{Column.Description}}',1,null);
+        <br>
+            SELECT @translatorID= SCOPE_IDENTITY();
+            <br>
+            insert into CMS.Translator ([Key],[Value],LanguageId,LocalizeParentId) Values('{{Column.ColumnName}}','{{Column.ColumnName}}',2,@translatorID);
+           
+    </div>
+    select * from CMS.Translator;<br>
+    <hr>
+    exec [dbo].[add_security_object_permission_URL_role]  '{{SelectTable.TableName}}', '{{SelectTable.TableName}}', '{{SelectTable.AreaName}}',NULL ,4,1,1,1,1
+
+</div>

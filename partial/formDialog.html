@@ -1,0 +1,39 @@
+﻿<div >
+
+    <form name="FormManager" ng-submit="InsertNewTable()">
+
+            <div class="row">
+            <div  class="col col-lg-5">
+                <div class="form-group  has-feedback" ng-class="{'has-success':FormManager.AreaName.$dirty &&  FormManager.AreaName.$valid,'has-error':FormManager.AreaName.$dirty && FormManager.AreaName.$invalid}">
+                    <label  >Area Name :</label>
+                    <input type="text" class="form-control" name="AreaName" ng-model="NewTable.AreaName" required placeholder="Area Name">
+                </div>
+            </div>
+            <div  class="col col-lg-5">
+                    <div class="form-group  has-feedback" ng-class="{'has-success':FormManager.TableName.$dirty &&  FormManager.TableName.$valid,'has-error':FormManager.TableName.$dirty && FormManager.TableName.$invalid}">
+                        <label  >Table Name : </label>
+                        <input type="text" class="form-control" name="TableName" ng-model="NewTable.TableName" required placeholder="Table Name">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div  class="col col-lg-10">
+                <div class="form-group  has-feedback" ng-class="{'has-success':FormManager.TableDesign.$dirty &&  FormManager.TableDesign.$valid,'has-error':FormManager.TableDesign.$dirty && FormManager.TableDesign.$invalid}">
+                    <label for="exampleFormControlTextarea1">Table Description :</label>
+                    <textarea class="form-control" name="TableDesign"  ng-model="NewTable.Description" id="txtTableDesign" rows="6" required></textarea>
+                </div>
+            </div>
+            <div class="row">
+                    <div  class="col col-lg-4"></div>
+                    <div  class="col col-lg-3">
+                        
+                            <button type="submit" class="btn btn-primary" ng-disabled="FormManager.$invalid || FormManager.$pristine"  >Create</button>
+                    </div>
+            </div>
+            </div>
+            <br><br>
+    </form>
+        
+
+</div>
+    

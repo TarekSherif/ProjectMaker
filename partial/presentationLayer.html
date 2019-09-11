@@ -1,0 +1,91 @@
+﻿<div >
+        <h3>Views Index</h3>  
+        <h5> //Translator</h5> 
+        <div ng-repeat="Column in SelectTable.Columns| filter:{ISPrimaryKey:false} ">
+                var _{{Column.ColumnName}} = '@BonianTech.Global.Translator.Translate("{{Column.ColumnName}}")';
+        </div>
+        <hr>
+        <h3>Angular Controller</h3>  
+        <div ng-repeat="Column in SelectTable.Columns | filter:{ISPrimaryKey:false}">
+                {<br>
+                    name: '{{Column.ColumnName}}',<br>
+                    displayName: _{{Column.ColumnName}},<br>
+                    enableSorting: true,<br>
+                    enablePinning: true,<br>
+                    cellTemplate: gridHelper.cellTemplate('{{Column.ColumnName}}') <br>
+                },<br>
+        </div>
+        <hr>
+        <h3>Views Manager</h3>  
+        <div ng-repeat="Column in SelectTable.Columns | filter:{ISPrimaryKey:false} ">
+                <br><br><br>
+                &lt;div class="col-md-6"&gt; <br>
+                    &lt;div class="form-group"&gt; <br>
+                        @Html.LabelFor(model => model.{{SelectTable.TableName}}.{{Column.ColumnName}})<br>
+                    
+                        <div ng-show="Column.ISForeignKey">
+                        
+                        &lt;ui-select class="managerControl" theme="select2" ng-model="{{SelectTable.TableName}}ViewModel.{{SelectTable.TableName}}.{{Column.ColumnName}}"  &gt; <br>
+                            &lt;ui-select-match allow-clear="true" placeholder="@BonianTech.Global.Translator.Translate("ColumnName")"&gt;{{$select.selected.Value}}&lt;/ui-select-match&gt; <br>
+                            &lt;ui-select-choices repeat="item.Key as item in {{SelectTable.TableName}}LookupsViewModel.UnitStatus | filter:$select.search"&gt; <br>
+                                &lt;div ng-bind-html="item.Value | highlight: $select.search"&gt;&lt;/div&gt; <br>
+                            &lt;/ui-select-choices&gt; <br>
+                        &lt;/ui-select&gt; <br>
+
+                        
+                        </div>
+                        <div ng-hide="Column.ISForeignKey">
+                            <div ng-show="(Column.Type|dataType)=='DateTime'">
+                                &lt;date-picker-directive date-value="{{SelectTable.TableName}}ViewModel.{{SelectTable.TableName}}.{{Column.ColumnName}}"&gt;  &lt;/date-picker-directive&gt; 
+                            </div>
+                            <div ng-hide="(Column.Type|dataType)=='DateTime'">
+                                @Html.TextBoxFor(model => model.{{SelectTable.TableName}}.{{Column.ColumnName}}, new { 
+                                    name="{{Column.ColumnName}}" , 
+
+                                        
+                                    <span ng-hide="(Column.Type|dataType)=='string' ">
+                                        type = "number",
+                                    </span> 
+                                    
+                                    
+                                    <span ng-show="Column.NotNull==true">
+                                        @required  = "required" ,
+                                        <!-- ng_class="{'has-success':FormManager.TableDesign.$dirty &&  FormManager.TableDesign.$valid,'has-error':FormManager.TableDesign.$dirty && FormManager.TableDesign.$invalid}" ,
+                                    -->
+                                    </span> 
+                                    
+                                    
+                                    ng_model = "{{SelectTable.TableName}}ViewModel.{{SelectTable.TableName}}.{{Column.ColumnName}}", @class = "form-control managerControl" })<br>
+                            
+                            </div>
+                        
+                        </div>
+                        
+                        
+                            @Html.ValidationMessageFor(model => model.{{SelectTable.TableName}}.{{Column.ColumnName}})<br>
+                        &lt;/div&gt; <br>
+                        &lt;/div&gt; <br>
+        </div>
+        <!-- <h4>ng-disabled="FormManager.$invalid || FormManager.$pristine"  </h4> -->
+
+        <hr>
+            <h4>
+            novalidate class="css-form"
+
+            <!-- 
+            <style type="text/css">
+                /* .css-form input.ng-invalid.ng-touched {
+                    border-color: #a94442;
+                    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                }
+            
+                .css-form input.ng-valid.ng-touched {
+                    border-color: #3c763d;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                } */
+            </style> -->
+
+            </h4>
+    </div>
